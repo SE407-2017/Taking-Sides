@@ -48,9 +48,9 @@ def login(request):
 def index(request):
     return render(request,'index.html')
 def debateContent1(request):
-    return render(request,'debateContent/1.html')
+    return render(request,'debateContent/debateContent1.html')
 def debateContent2(request):
-    return render(request,'debateContent/2.html')
+    return render(request,'debateContent/debateContent2.html')
 def debateContent3(request):
-    return render(request,'debateContent/3.html')
+    return render(request,'debateContent/debateContent3.html')
 
