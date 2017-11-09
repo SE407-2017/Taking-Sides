@@ -22,4 +22,7 @@ urlpatterns = [
     url(r'^index/$',views.index),
     url(r'^login/$',views.login),
     url(r'^regist/$',views.regist),
+    url(r'^1/$',views.debateContent1),
+    url(r'^2/$',views.debateContent2),
+    url(r'^3/$',views.debateContent3),
 ]

@@ -37,7 +37,7 @@ def login(request):
             user = User.objects.filter(username__exact=username,password__exact=password)
 
             if user:
-                return render(request,'index.html')
+                return render(request,'debateTitle.html')
             else:
                 return HttpResponse('用户名或密码错误,请重新登录')
 
@@ -47,3 +47,10 @@ def login(request):
 
 def index(request):
     return render(request,'index.html')
+def debateContent1(request):
+    return render(request,'debateContent/1.html')
+def debateContent2(request):
+    return render(request,'debateContent/2.html')
+def debateContent3(request):
+    return render(request,'debateContent/3.html')
+
