@@ -18,8 +18,11 @@ from django.contrib import admin
 from app01 import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^index/$',views.index),
-    url(r'^login/$',views.login),
-    url(r'^regist/$',views.regist),
+    url(r'^admin/', admin.site.urls,name='admin'),
+    url(r'^index/$',views.index,name='index'),
+    url(r'^login/$',views.login,name='login'),
+    url(r'^regist/$',views.regist,name='regist'),
+    url(r'^debateContent1/$',views.debateContent1,name='debateContent1'),
+    url(r'^debateContent2/$',views.debateContent2,name='debateContent2'),
+    url(r'^debateContent3/$',views.debateContent3,name='debateContent3'),
 ]
