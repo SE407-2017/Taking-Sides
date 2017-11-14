@@ -19,8 +19,8 @@ import views
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^index/$',views.index),
-    url(r'^login/$',views.login),
-    url(r'^regist/$',views.regist),
+    url(r'^$',views.index),
+    url(r'^login/',views.login),
+    url(r'^regist/',views.regist),
 
 ]
