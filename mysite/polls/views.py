@@ -7,9 +7,6 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Choice, Question
-from django.contrib.auth.decorators import login_required
-
-
 # class IndexView(generic.ListView):
 #     template_name = 'polls/index.html'
 #     context_object_name = 'latest_question_list'
@@ -29,7 +26,6 @@ from django.contrib.auth.decorators import login_required
 # class ResultsView(generic.DetailView):
 #     model = Question
 #     template_name = 'polls/results.html'
-
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
