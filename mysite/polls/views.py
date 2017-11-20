@@ -7,26 +7,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Choice, Question
-# class IndexView(generic.ListView):
-#     template_name = 'polls/index.html'
-#     context_object_name = 'latest_question_list'
-
-#     def get_queryset(self):
-#     	return Question.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
-
-# class DetailView(generic.DetailView):
-#     model = Question
-#     template_name = 'polls/detail.html'
-#     def get_queryset(self):
-#         """
-#         Excludes any questions that aren't published yet.
-#         """
-#         return Question.objects.filter(pub_date__lte=timezone.now())
-
-# class ResultsView(generic.DetailView):
-#     model = Question
-#     template_name = 'polls/results.html'
-
+from django import forms
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
@@ -57,9 +38,31 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-def raiseQuestion(request):
+class QuestionForm(forms.Form):
+    question_text = forms.CharField(label='问题标题',max_length=50)
+    question_detail=forms.CharField(label='问题内容',max_length=500)
+    questioner_name = forms.CharField(label='提问者姓名',max_length=50)
+    choice_text1 = forms.CharField(max_length=200)
+    choice_text2 = forms.CharField(max_length=200)
+
+def questionRaise(request):
     #if request.user.is_authenticated():
-        return render(request,'polls/raiseQuestion.html') 
+        # return render(request,'polls/raiseQuestion.html') 
     #else: 
      #   return HttpResponseRedirect(reverse('login:login'))
-# Create your views here.
+    if request.method=="POST":
+        questionform=QuestionForm(request.POST)
+        if questionform.is_valid():
+            question_text = questionform.cleaned_data['question_text']
+            question_detail = questionform.cleaned_data['question_detail']
+            questioner_name=questionform.cleaned_data['questioner_name']
+            choice_text1 = questionform.cleaned_data['choice_text1']
+            choice_text2 = questionform.cleaned_data['choice_text2']
+            q=Question(question_text=question_text,question_detail=question_detail,questioner_name=questioner_name) 
+            q.save()
+            q.choice_set.create(choice_text=choice_text1)
+            q.choice_set.create(choice_text=choice_text2)
+            return render(request,'polls/index.html')
+    else:
+        questionform=QuestionForm()
+    return render(request,'polls/raiseQuestion.html',{'questionform':questionform})

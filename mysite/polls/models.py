@@ -5,11 +5,12 @@ from django.utils import timezone
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 
+
 @python_2_unicode_compatible  # only if you need to support Python 2
 class Question(models.Model):
     question_text = models.CharField(max_length=50)
     question_detail=models.CharField(max_length=500)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField(default = timezone.now)
     questioner_name = models.CharField(max_length=50)
     def __str__(self):
         return self.question_text
