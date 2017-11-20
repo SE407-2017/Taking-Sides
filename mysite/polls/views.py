@@ -57,4 +57,9 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+def raiseQuestion(request):
+    #if request.user.is_authenticated():
+        return render(request,'polls/raiseQuestion.html') 
+    #else: 
+     #   return HttpResponseRedirect(reverse('login:login'))
 # Create your views here.

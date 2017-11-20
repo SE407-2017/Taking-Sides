@@ -9,4 +9,31 @@
     </ul>
 {% else %}
     <p>No polls are available.</p>
+<<<<<<< HEAD
+{% endif %} -->
+{% if latest_question_list %}
+	<a href={% url 'polls:raiseQuestion' %}>
+	<button> raise a question</button>
+	</a>
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="{% url 'polls:detail' question.id %}">
+        	{{ question.question_text}}</a></li>
+        	<p>{{question.question_detail}}</p>
+        	<ol>
+        	{% for choice in question.choice_set.all %}
+				<li>{{choice}}</li>
+        	{% endfor %}
+            </ol>
+            <p>{{question.pub_date}} &nbsp;&nbsp;&nbsp;questioner:{{question.questioner_name}}</p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
 {% endif %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+=======
+{% endif %}
+>>>>>>> origin/master

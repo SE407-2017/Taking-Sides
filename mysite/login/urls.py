@@ -17,10 +17,10 @@ from django.conf.urls import url,include
 from django.contrib import admin
 import views
 admin.autodiscover()
-
+app_name='login'
 urlpatterns = [
     url(r'^$',views.index),
-    url(r'^login/',views.login),
+    url(r'^login/',views.login,name='login'),
     url(r'^regist/',views.regist),
 
 ]
