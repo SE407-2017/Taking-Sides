@@ -101,13 +101,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-<<<<<<< HEAD
-AUTHENTICATION_BACKENDS = (
-        'django.contrib.auth.backends.ModelBackend',
-    )
 
-=======
->>>>>>> origin/master
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
