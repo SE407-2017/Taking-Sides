@@ -2,6 +2,8 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
+
+
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
 {% for choice in question.choice_set.all %}
@@ -10,3 +12,6 @@
 {% endfor %}
 <input type="submit" value="Vote" />
 </form>
+<a href="{% url 'polls:index' %}?next={{ request.path }}">
+<button>返回问题页面</button>
+</a>

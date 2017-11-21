@@ -35,9 +35,12 @@
 </style>
 <body>
 <h1>提问页面</h1>
-<form method = 'post' enctype="multipart/form-data">
+<form method = 'post' enctype="multipart/form-data" >
 {{questionform.as_p}}
 <input type="submit" value = "提问" />
 </form>
+<a href="{% url 'polls:index' %}?next={{ request.path }}">
+<button>返回问题页面</button>
+</a>
 </body>
 </html>

@@ -82,4 +82,7 @@
 </script>
 
 {% endblock %}
+<a href="{% url 'polls:index' %}?next={{ request.path }}">
+<button>返回问题页面</button>
+</a>
 

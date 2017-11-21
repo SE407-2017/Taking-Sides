@@ -13,7 +13,7 @@ def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
     return render(request, 'polls/index.html', context)
-@login_required
+
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/detail.html', {'question': question})
@@ -43,8 +43,8 @@ class QuestionForm(forms.Form):
     question_text = forms.CharField(label='问题标题',max_length=50)
     question_detail=forms.CharField(label='问题内容',max_length=500)
     questioner_name = forms.CharField(label='提问者姓名',max_length=50)
-    choice_text1 = forms.CharField(max_length=200)
-    choice_text2 = forms.CharField(max_length=200)
+    choice_text1 = forms.CharField(label='选项1',max_length=200)
+    choice_text2 = forms.CharField(label='选项2',max_length=200)
 
 @login_required
 def questionRaise(request):
@@ -64,7 +64,7 @@ def questionRaise(request):
             q.save()
             q.choice_set.create(choice_text=choice_text1)
             q.choice_set.create(choice_text=choice_text2)
-            return render(request,'polls/index.html')
+            return HttpResponseRedirect(reverse('polls:index'))
     else:
         questionform=QuestionForm()
     return render(request,'polls/raiseQuestion.html',{'questionform':questionform})
