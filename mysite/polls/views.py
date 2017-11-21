@@ -8,19 +8,20 @@ from django.views import generic
 from django.utils import timezone
 from .models import Choice, Question
 from django import forms
+from django.contrib.auth.decorators import login_required
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
     return render(request, 'polls/index.html', context)
-
+@login_required
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/detail.html', {'question': question})
-
+@login_required
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/results.html', {'question': question})
-
+@login_required
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
@@ -45,6 +46,7 @@ class QuestionForm(forms.Form):
     choice_text1 = forms.CharField(max_length=200)
     choice_text2 = forms.CharField(max_length=200)
 
+@login_required
 def questionRaise(request):
     #if request.user.is_authenticated():
         # return render(request,'polls/raiseQuestion.html') 
