@@ -1,3 +1,4 @@
+{% load comments %}
 <h1>{{ question.question_text }}</h1>
 
 <ul>
@@ -5,5 +6,80 @@
     <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
 {% endfor %}
 </ul>
-
 <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+
+<h3>评论列表</h3>
+<ul>
+    {% get_comment_list for question as comments %}
+    {% for comment in comments %}
+        <li>
+        {{ comment.user_name }} :<br/>
+        {{ comment.comment }}<br/>
+        </li>
+    {% empty %}
+        <span>暂无评论</span>
+
+    {% endfor %}
+</ul>
+
+<h3>写评论</h3>
+{% get_comment_form for question as form %}
+
+
+<form class="form-horizontal" action="{% comment_form_target %}" method="post" id="comment_form">
+
+    {% csrf_token %}
+    {{ form.object_pk }}
+    {{ form.content_type }}
+    {{ form.timestamp }}
+    {{ form.site }}
+    {{ form.submit_date }}
+    {{ form.security_hash }}
+
+{#    用户名和邮箱接口#}
+    <input type="hidden" name="name" value="test_user"/>
+    <input type="hidden" name="email" value="user@test.com"/>
+
+    <textarea rows="6" name="comment" placeholder="请输入评论内容" id="id_comment"></textarea>
+    <input type="hidden" name="next" value="{%url 'polls:results' question.id%}"/>
+    <input type="submit" name="submit" value="提交"/>
+</form>
+
+
+{% block extra_footer %}
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(document).ready(function ()
+    {
+        $("#comment_form").submit(function ()
+        {
+            if ($("#id_comment").val().length === 0)
+            {
+                alert("评论不能为空！");
+                $("#id_comment").focus();
+                return false;
+            };
+            $("#id_timestamp").value=event.timeStamp;
+            $.ajax({
+                type:"POST",
+                data:$("#comment_form").serialize(),
+                url:"{% comment_form_target %}",
+                cache:false,
+                dataType:"html",
+                success:function (html, textStatus)
+                {
+                    window.location.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown)
+                {
+                    alert("抱歉，评论出错了:(" + errorThrown);
+                },
+            });
+            return false;
+        });
+
+    });
+</script>
+
+{% endblock %}
+
