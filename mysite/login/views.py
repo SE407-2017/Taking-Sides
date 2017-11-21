@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django import forms
-from login.models import User
+from .models import User
 import pdb
 from django.contrib import auth
 from django.template import RequestContext
