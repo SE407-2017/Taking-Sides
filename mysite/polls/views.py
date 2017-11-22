@@ -55,29 +55,23 @@ def vote(request, question_id):
 class QuestionForm(forms.Form):
     question_text = forms.CharField(label='问题标题',max_length=50)
     question_detail=forms.CharField(label='问题内容',max_length=500)
-    questioner_name = forms.CharField(label='提问者姓名',max_length=50)
     choice_text1 = forms.CharField(label='选项1',max_length=200)
     choice_text2 = forms.CharField(label='选项2',max_length=200)
 
 @login_required
 def questionRaise(request):
-    #if request.user.is_authenticated():
-        # return render(request,'polls/raiseQuestion.html') 
-    #else: 
-     #   return HttpResponseRedirect(reverse('login:login'))
     if request.method=="POST":
         questionform=QuestionForm(request.POST)
         if questionform.is_valid():
             question_text = questionform.cleaned_data['question_text']
             question_detail = questionform.cleaned_data['question_detail']
-            questioner_name=questionform.cleaned_data['questioner_name']
             choice_text1 = questionform.cleaned_data['choice_text1']
             choice_text2 = questionform.cleaned_data['choice_text2']
-            q=Question(question_text=question_text,question_detail=question_detail,questioner_name=questioner_name) 
+            q=Question(question_text=question_text,question_detail=question_detail,questioner_name=request.user.username) 
             q.save()
             q.choice_set.create(choice_text=choice_text1)
             q.choice_set.create(choice_text=choice_text2)
-            return HttpResponseRedirect(reverse('polls:index'))
+            return HttpResponseRedirect('/polls/')
     else:
         questionform=QuestionForm()
     return render(request,'polls/raiseQuestion.html',{'questionform':questionform})
