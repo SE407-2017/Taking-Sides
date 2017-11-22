@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
 from .models import Choice, Question
+from users.models import User
 from django import forms
 from django.contrib.auth.decorators import login_required
 def index(request):
@@ -33,12 +34,24 @@ def vote(request, question_id):
             'error_message': "You didn't select a choice.",
         })
     else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+        now_user=User.objects.get(username=request.user.username)
+        votedQuestions=now_user.voted_questions.split(',')
+        if str(question_id) in votedQuestions:            
+            return render(request, 'polls/detail.html', {
+                'question': question,
+                'error_message': "You have already voted this question!",
+            })
+        else:
+            selected_choice.votes += 1
+            selected_choice.save()
+            votedQuestions.append(str(question_id))
+            now_user.voted_questions=','.join(votedQuestions)
+            now_user.save()
+            # Always return an HttpResponseRedirect after successfully dealing
+            # with POST data. This prevents data from being posted twice if a
+            # user hits the Back button.
+            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
 class QuestionForm(forms.Form):
     question_text = forms.CharField(label='问题标题',max_length=50)
     question_detail=forms.CharField(label='问题内容',max_length=500)
