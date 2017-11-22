@@ -35,7 +35,6 @@ def login(request):
             username = userform.cleaned_data['username']
             password = userform.cleaned_data['password']
             user = User.objects.filter(username__exact=username,password__exact=password)
-            # user = authenticate(username=username,password=password)
             if user:
                 return HttpResponseRedirect(reverse('polls:index'))
             else:
