@@ -57,6 +57,7 @@ class QuestionForm(forms.Form):
     question_detail=forms.CharField(label='问题内容',max_length=500)
     choice_text1 = forms.CharField(label='选项1',max_length=200)
     choice_text2 = forms.CharField(label='选项2',max_length=200)
+	
 
 @login_required
 def questionRaise(request):
