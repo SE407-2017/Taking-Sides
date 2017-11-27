@@ -37,9 +37,9 @@ def vote(request, question_id):
         now_user=User.objects.get(username=request.user.username)
         votedQuestions=now_user.voted_questions.split(',')
         if str(question_id) in votedQuestions:            
-            return render(request, 'polls/detail.html', {
+            return render(request, 'polls/results.html', {
                 'question': question,
-                'error_message': "You have already voted this question!",
+                'error_message': "You have already voted this question!This is the result of this question",
             })
         else:
             selected_choice.votes += 1
@@ -52,11 +52,17 @@ def vote(request, question_id):
             # user hits the Back button.
             return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
+def appreciate(request,question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    question.question_appreciation+=1
+    question.save()
+    return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
 class QuestionForm(forms.Form):
     question_text = forms.CharField(label='问题标题',max_length=50)
     question_detail=forms.CharField(label='问题内容',max_length=500)
     choice_text1 = forms.CharField(label='选项1',max_length=200)
     choice_text2 = forms.CharField(label='选项2',max_length=200)
+	
 
 @login_required
 def questionRaise(request):

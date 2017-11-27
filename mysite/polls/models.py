@@ -4,7 +4,7 @@ import datetime
 from django.utils import timezone
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
-
+from django_comments.models import Comment
 
 @python_2_unicode_compatible  # only if you need to support Python 2
 class Question(models.Model):
@@ -12,6 +12,7 @@ class Question(models.Model):
     question_detail=models.CharField(max_length=500)
     pub_date = models.DateTimeField(default = timezone.now)
     questioner_name = models.CharField(max_length=50)
+    question_appreciation=models.IntegerField(default=0)
     def __str__(self):
         return self.question_text
     def was_published_recently(self):
