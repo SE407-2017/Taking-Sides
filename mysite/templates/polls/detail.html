@@ -6,15 +6,9 @@
 <meta charset="utf-8">
 <title>{{ question.question_text }}</title>
 </head>
-<<<<<<< HEAD
-=======
-
->>>>>>> ce545a3ba7a3971d1251c989873baa91a317a68c
 
 
 <h1 style="font-weight:800;font-size:48px;">{{ question.question_text }}</h1>
-
-<<<<<<< HEAD
 <h1 style="font-weight:800;font-size:48px;">{{ question.question_text }}</h1>
 <p>appreciation:{{question.question_appreciation}}</p>
 <form action="{% url 'polls:appreciate' question.id %}" method="post">
@@ -24,23 +18,19 @@
 =======
 >>>>>>> ce545a3ba7a3971d1251c989873baa91a317a68c
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
 <form action="{% url 'polls:vote' question.id %}" method="post" class="que">
 {% csrf_token %}
 {% for choice in question.choice_set.all %}
     <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
     <label for="choice{{ forloop.counter }}" class="but4">{{ choice.choice_text }}</label><br />
 {% endfor %}
-
 <input type="submit" value="Vote"  class="but4"/>
-
 </form>
 <a href="{% url 'polls:index' %}?next={{ request.path }}">
 <button style="vertical-align:middle" class="but3">
 			<span> 
 		     返回问题页面
 		    </span></button>
-
 </a><br><br><br>
 <img src="/static/sjtu.png" alt="SJTU" width="200" height="200" style="float:right;">
 <div style="float:right;position:relative;right:00px;">

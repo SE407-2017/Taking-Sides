@@ -54,9 +54,20 @@ def vote(request, question_id):
 
 def appreciate(request,question_id):
     question = get_object_or_404(Question, pk=question_id)
-    question.question_appreciation+=1
-    question.save()
-    return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
+    now_user=User.objects.get(username=request.user.username)
+    likedQuestions=now_user.liked_questions.split(',')
+    if str(question_id) in likedQuestions:
+        return render(request, 'polls/detail.html', {
+                'question': question,
+                'error_message': "You have already appreciated this question!",
+            })
+    else:
+        question.question_appreciation+=1
+        question.save()
+        likedQuestions.append(str(question_id))
+        now_user.liked_questions=','.join(likedQuestions)
+        now_user.save()
+        return HttpResponseRedirect(reverse('polls:detail', args=(question.id,)))
 class QuestionForm(forms.Form):
     question_text = forms.CharField(label='问题标题',max_length=50)
     question_detail=forms.CharField(label='问题内容',max_length=500)
