@@ -39,7 +39,7 @@ def vote(request, question_id):
         if str(question_id) in votedQuestions:            
             return render(request, 'polls/results.html', {
                 'question': question,
-                'error_message': "You have already voted this question!This is the result of this question",
+                'error_message': "你已投过票，请勿重复投票！",
             })
         else:
             selected_choice.votes += 1
@@ -50,7 +50,11 @@ def vote(request, question_id):
             # Always return an HttpResponseRedirect after successfully dealing
             # with POST data. This prevents data from being posted twice if a
             # user hits the Back button.
-            return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+            #return HttpResponseRedirect(reverse('polls:results', args=(question.id,)), {'error_message':"You vote successfully!"})
+            return render(request, 'polls/results.html', {
+                'question': question,
+                'error_message': "投票成功!",
+            })
 
 def appreciate(request,question_id):
     question = get_object_or_404(Question, pk=question_id)

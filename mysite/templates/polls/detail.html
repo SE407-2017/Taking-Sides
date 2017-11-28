@@ -12,8 +12,7 @@
 {% csrf_token %}     
 <input type= "submit" value="appreciate" style="margin-right:-350"/>
 </form>
-=======
->>>>>>> ce545a3ba7a3971d1251c989873baa91a317a68c
+
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 <form action="{% url 'polls:vote' question.id %}" method="post" class="que">
 {% csrf_token %}
