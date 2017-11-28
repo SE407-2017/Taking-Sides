@@ -18,7 +18,11 @@
     <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
 {% endfor %}
 </ul>
-<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+
+<a href="{% url 'polls:index' %}?next={{ request.path }}">
+<button>返回问题页面</button>
+</a>
+</body>
 
 <h3>评论列表</h3>
 <ul>
@@ -107,10 +111,7 @@
 </script>
 
 {% endblock %}
-<a href="{% url 'polls:index' %}?next={{ request.path }}">
-<button>返回问题页面</button>
-</a>
-</body>
+
 
 <br><br><br>
 <img src="/static/sjtu.png" alt="SJTU" width="200" height="200" style="float:right;">
