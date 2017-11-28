@@ -47,23 +47,14 @@
     {{ form.security_hash }}
 
 {#    用户名和邮箱接口#}
-    <input type="hidden" name="name" value="test_user"/>
-    <input type="hidden" name="email" value="user@test.com"/>
+    <input type="hidden" name="user.username" value="test_user"/>
+    <input type="hidden" name="user.email" value="user@test.com"/>
     <input type="hidden" name="appreciation" value=5/>
     <textarea rows="6" name="comment" placeholder="请输入评论内容" id="id_comment"></textarea>
     <input type="hidden" name="next" value="{%url 'polls:results' question.id%}"/>
     <input type="submit" name="submit" value="提交"/>
 </form>
 
-
-
-{%get_comment_form for post as form%}
-<form action='{%comment_form_target%}' method='post'>
-    {% csrf_token %}
-    {{form.object_pk}}
-    {{form.content_type}}
-    {{form.timestamp}}
-    {{form.security_hash}}
 
 
 
