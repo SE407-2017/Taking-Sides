@@ -7,6 +7,13 @@
 <title>TakingSides</title>
 </head>
 <body>
+<form role="search" method="get" id="searchform" action="{% url 'polls:search' %}">
+      {% csrf_token %}
+      <input type="search" name="q" placeholder="Search" required>
+      <button type="submit">搜索<span class="button" style="..."></span></button>
+</form>
+
+
 {% if latest_question_list %}
 	<a href={% url 'polls:raiseQuestion' %}>
 	<button class="button" style="vertical-align:middle" id="but1"><span>提出问题</span></button>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>相关辩题</title>
+</head>
+<body>
+{% if error_msg %}
+    <p>{{ error_msg }}</p>
+{% endif %}
+
+{% for post in post_list %}
+    <div class="que">
+		<li><a href="{% url 'polls:detail' post.id %}">
+        	<button style="vertical-align:middle" class="but2">
+			<span>
+		     问题：{{ post.question_text}}
+		    </span></button>
+			</a>
+		</li>
+        	<p>问题描述: {{post.question_detail}}</p>
+        	<ol>
+        	{% for choice in post.choice_set.all %}
+				<li>{{choice}}
+                </li>
+        	{% endfor %}
+            </ol>
+            <p>提出时间：{{post.pub_date}} &nbsp;&nbsp;&nbsp;
+		 <br>
+		 提问人:{{post.questioner_name}}</p>
+    </div>
+{% endfor %}
+<div class="no-post">
+    没有更多了
+  </div>
+</body>
+</html>
