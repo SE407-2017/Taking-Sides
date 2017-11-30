@@ -1,13 +1,13 @@
 # Taking-Sides
 ***
-#项目简介  
+# 项目简介  
 开发环境：  
 　　Python 2.7.9  
 　　django  1.11.6  
 　　需要安装的包：  
 　　`pip install django-contrib-comments`
 ***
-#如何使用 
+# 如何使用 
 * 在cmd命令行运行（以下路径仅是例子）。  
 `C:\Users\lenovo\Desktop\Taking-Sides>python manage.py runserver` 
 * 浏览器访问  `http://127.0.0.1:8000/`进入注册登录页面  。
@@ -22,7 +22,7 @@
 ![](3.png)  
 评论页面
 ***
-#感谢  
+# 感谢  
 * 马颖华老师及助教苏宇老师
 * 我们全组七人的团结协作
 
