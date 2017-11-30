@@ -10,6 +10,7 @@
 /*���ж���*/
 body {
     text-align: center;
+	background-image:url('/static/background.jpg');
 }
 
 /*����ʱ��С��*/
@@ -33,7 +34,7 @@ body {
 #but1 {
   display: inline-block;
   border-radius: 4px;
-  background-color: #333399;
+  background-color: #267fd9;
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -208,7 +209,6 @@ body {
 
 
 .que {border:2px solid #a1a1a1; 
-	background:#FFFFFF;
 	width:60%;
 	position:relative;
 	right:10px;
@@ -216,3 +216,43 @@ body {
 	margin-right:auto;
 	}
 	
+	
+.but6 {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #267fd9;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 20px;
+  width: 40%;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.but6 span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.but6 span:after {
+  content: '<<<';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  left: 20px;
+  transition: 0.5s;
+}
+
+.but6:hover span {
+  padding-left: 60px;
+}
+
+.but6:hover span:after {
+  opacity: 1;
+  left: 0;
+}

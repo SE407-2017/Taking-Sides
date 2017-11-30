@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
 	<link rel="stylesheet" type="text/css" href="/static/style.css" />
 </head>
-<body>
+<body style="position:relative; top:75px;">
 <div class="flex-center">
     <div class="container">
         <div>
-            <h1 class="logo"><a href="{% url 'index' %}">欢迎来到站队投票网！</a></h1>
+            <h1 class="logo" style="font-size:40px;"><a href="{% url 'index' %}">欢迎来到站队投票网！</a></h1>
             {% if user.is_authenticated %}
-                <p>你已登录，欢迎你：<a href="#">{{ user.username }}</a></p>
+                <p style="font-size:20px;">你已登录，欢迎你：<a href="#">{{ user.username }}</a></p>
                 <a href="{% url 'logout' %}?next={{ request.path }}">注销登录</a>
                 <a href="{% url 'password_change' %}?next={{ request.path }}">修改密码</a>
                 <a href="{% url 'polls:index' %}">进入辩论</a>
@@ -28,5 +28,6 @@
         </div>
     </div>
 </div>
+<img src="/static/4.jpg" alt="！" width="300" height="300";">
 </body>
 </html>
