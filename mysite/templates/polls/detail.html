@@ -6,11 +6,11 @@
 <meta charset="utf-8">
 <title>{{ question.question_text }}</title>
 </head>
-<h1 style="font-weight:800;font-size:48px;">{{ question.question_text }}</h1>
-<p>appreciation:{{question.question_appreciation}}</p>
+<h1 style="font-weight:800;font-size:48px;font-variant:small-caps;">{{ question.question_text }}</h1>
+<p>点赞数:{{question.question_appreciation}}</p>
 <form action="{% url 'polls:appreciate' question.id %}" method="post">
-{% csrf_token %}     
-<input type= "submit" value="appreciate" style="margin-right:-350"/>
+	{% csrf_token %}     
+	<input class="but4"  type= "submit" value="👍" style="margin-right:-350"/>
 </form>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
@@ -28,6 +28,7 @@
 		     返回问题页面
 		    </span></button>
 </a><br><br><br>
+
 <img src="/static/sjtu.png" alt="SJTU" width="200" height="200" style="float:right;">
 <div style="float:right;position:relative;right:00px;">
 {% if user.is_authenticated %}

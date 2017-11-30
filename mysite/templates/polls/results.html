@@ -12,17 +12,14 @@
 <h1>{{ question.question_text }}</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
+<div class="que">
 <ul>
 {% for choice in question.choice_set.all %}
     <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
 {% endfor %}
 </ul>
 
-<a href="{% url 'polls:index' %}?next={{ request.path }}">
-<button>返回问题页面</button>
-</a>
-</body>
+
 
 <h3>评论列表</h3>
 <ul>
@@ -37,7 +34,10 @@
 
     {% endfor %}
 </ul>
+</div>
 
+
+<div class="que">
 <h3>写评论</h3>
 {% get_comment_form for question as form %}
 
@@ -58,9 +58,16 @@
     <input type="hidden" name="appreciation" value=5/>
     <textarea rows="6" name="comment" placeholder="请输入评论内容" id="id_comment"></textarea>
     <input type="hidden" name="next" value="{%url 'polls:results' question.id%}"/>
-    <input type="submit" name="submit" value="提交"/>
+    </br>
+	<input class="but5" type="submit" name="submit" value="提交"/>
 </form>
 
+
+<a href="{% url 'polls:index' %}?next={{ request.path }}">
+<button class="but3"><span>返回问题页面</span></button>
+</a>
+</body>
+</div>
 
 
 {% block extra_footer %}

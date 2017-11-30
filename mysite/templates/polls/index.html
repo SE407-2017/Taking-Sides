@@ -7,27 +7,37 @@
 <title>TakingSides</title>
 </head>
 <body>
-<form role="search" method="get" id="searchform" action="{% url 'polls:search' %}">
+
+<h1 id="indexhead">站队投票器</h1>
+</br>
+
+<a href={% url 'polls:raiseQuestion' %}>
+	<button class="button" style="vertical-align:middle" id="but1"><span>提出问题</span></button>
+	</a>
+	</br></br>
+{% if latest_question_list %}
+	
+<div style="position:relative; left:300px; float:left;">
+    <a href={% url 'polls:rankByUpTime' %}>
+    <button class="but5" >按时间升序排序</button>
+    </a>
+    <a href={% url 'polls:rankByDownTime' %}>
+    <button class="but5">按时间降序排序</button>
+    </a>
+    <a href={% url 'polls:rankByAppreciation' %}>
+    <button class="but5">按问题点赞数排序</button>
+    </a>
+</div>
+	<form 
+	style="position:relative; top:10px;"
+	role="search" method="get" id="searchform" action="{% url 'polls:search' %}">
       {% csrf_token %}
       <input type="search" name="q" placeholder="Search" required>
       <button type="submit">搜索<span class="button" style="..."></span></button>
-</form>
-
-
-{% if latest_question_list %}
-	<a href={% url 'polls:raiseQuestion' %}>
-	<button class="button" style="vertical-align:middle" id="but1"><span>提出问题</span></button>
-	</a>
-    <a href={% url 'polls:rankByUpTime' %}>
-    <button class="button" >按时间升序排序</button>
-    </a>
-    <a href={% url 'polls:rankByDownTime' %}>
-    <button class="button" >按时间降序排序</button>
-    </a>
-    <a href={% url 'polls:rankByAppreciation' %}>
-    <button class="button"，>按问题点赞数排序</button>
-    </a>
-    <ul>
+     </form>
+	
+    <ul style="position:relative; top:10px;">
+	</br>
     {% for question in latest_question_list %}
         <div class="que">
 		<li><a href="{% url 'polls:detail' question.id %}">
@@ -37,6 +47,7 @@
 		    </span></button>
 			</a>
 		</li>
+		    <p>点赞数:{{question.question_appreciation}}</p>
         	<p>问题描述: {{question.question_detail}}</p>
         	<ol>
         	{% for choice in question.choice_set.all %}
